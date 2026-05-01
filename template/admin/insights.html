@@ -6,48 +6,45 @@
   <title>Market &amp; Pricing — Flashcart 2026</title>
   <meta name="description" content="Flashcart 2026 market intelligence and pricing strategy: TAM/SAM/SOM, policy landscape, country readiness, personas, recommended tiers, competitor price comparison.">
   <meta name="robots" content="noindex, follow">
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700;900&family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400&family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/dual-theme.css">
   <link rel="stylesheet" href="../assets/css/admin.css">
-  <link rel="stylesheet" href="../assets/css/site.css">
   <script src="../assets/vendor/chart.umd.js"></script>
 </head>
 <body class="theme-editorial">
 
   <div class="theme-switch" role="group" aria-label="Theme switcher">
     <button data-theme="editorial" class="active" type="button">Editorial</button>
-    <button data-theme="modern" type="button">Modern</button>
+    <button data-theme="saas" type="button">Modern</button>
   </div>
 
-  <header class="atlas-top">
-    <div class="container-wide">
-      <div class="nav-row">
-        <a href="index.html" class="brand">
-          <span class="mark">FC</span>
-          Flashcart <em>2026</em>
-        </a>
-        <nav class="atlas-nav" aria-label="Admin sections">
-          <a href="index.html">Competitors</a>
-          <a href="insights.html" class="active">Market &amp; Pricing</a>
-          <a href="whitespace.html">Whitespace Atlas</a>
-          <a href="design-audit.html">Design Audit</a>
-          <a href="report.html">Report</a>
-          <span class="spacer"></span>
-          <a href="../index.html">← Back to site</a>
-        </nav>
-      </div>
+  <header class="nav">
+    <div class="container nav-row">
+      <a href="index.html" class="brand">
+        Flashcart <em>2026</em>
+      </a>
+      <nav class="links" aria-label="Admin sections">
+        <a href="index.html">Competitors</a>
+        <a href="insights.html" class="active">Market &amp; Pricing</a>
+        <a href="whitespace.html">Whitespace Atlas</a>
+        <a href="design-audit.html">Design Audit</a>
+        <a href="report.html">Report</a>
+      </nav>
+      <a href="../index.html" class="nav-cta">← Back to site</a>
+    </div>
+    <div class="container">
       <div class="issue-strip">
         <span>Vol. 01 · No. 1</span>
         <span>Q2 2026</span>
-        <span>SG events &amp; MICE · USD 5–14B envelope</span>
-        <span>Flashcart Research</span>
+        <span>Singapore · Onsite events</span>
+        <span>An Elitez Group title</span>
       </div>
     </div>
   </header>
 
   <main>
     <section class="section">
-      <div class="container-wide">
+      <div class="container">
         <div class="label">§ I — Market intelligence</div>
         <h1>Market &amp; pricing intelligence.</h1>
         <p class="lede">This view fuses two outputs of the pipeline. The market intelligence half renders TAM/SAM/SOM from <code>/data/market-intelligence.json</code>, the policy landscape (supportive vs adverse signal), country-readiness scores across regulatory, tech maturity, and price tolerance, and the target-market distribution. The pricing strategy half renders persona ICPs with willingness-to-pay bands, recommended tiers (with grant-effective post-PSG prices), and a competitor price comparison chart with the recommended tier line overlaid.</p>
@@ -55,7 +52,7 @@
     </section>
 
     <section class="section">
-      <div class="container-wide">
+      <div class="container">
         <div class="label">§ II — Market size</div>
         <h2>TAM → SAM → SOM. <em>Auditable derivation.</em></h2>
         <div class="kpi-strip" id="market-kpis"></div>
@@ -64,7 +61,7 @@
     </section>
 
     <section class="section">
-      <div class="container-wide">
+      <div class="container">
         <div class="label">§ III — Policy landscape</div>
         <h2>Tailwinds and headwinds.</h2>
         <div id="policies"></div>
@@ -72,7 +69,7 @@
     </section>
 
     <section class="section">
-      <div class="container-wide">
+      <div class="container">
         <div class="label">§ IV — Country readiness</div>
         <h2>Where the wedge expands next.</h2>
         <table class="competitor-table">
@@ -83,7 +80,7 @@
     </section>
 
     <section class="section">
-      <div class="container-wide">
+      <div class="container">
         <div class="label">§ V — Target-market distribution</div>
         <h2>Where the competitor field clusters.</h2>
         <div class="artifact" style="height: 360px;"><canvas id="market-donut"></canvas></div>
@@ -91,7 +88,7 @@
     </section>
 
     <section class="section">
-      <div class="container-wide">
+      <div class="container">
         <div class="label">§ VI — Pricing strategy</div>
         <h1>Pricing strategy.</h1>
         <h2>Personas.</h2>
@@ -101,7 +98,7 @@
     </section>
 
     <section class="section">
-      <div class="container-wide">
+      <div class="container">
         <h2>Recommended tiers.</h2>
         <p class="lede">Single Event (free to host, brand-funded), Quarterly Activation Package (S$2,500/qtr), Annual Engagement Partner (S$12,000/yr).</p>
         <div id="tiers" class="grid-3"></div>
@@ -109,7 +106,7 @@
     </section>
 
     <section class="section">
-      <div class="container-wide">
+      <div class="container">
         <h2>Competitor price comparison.</h2>
         <p class="lede">Recommended tier overlaid against published competitor pricing. Where competitors hide pricing, the bar shows estimated mid-band.</p>
         <div class="artifact" style="height: 540px;"><canvas id="price-bars"></canvas></div>
@@ -117,12 +114,12 @@
     </section>
   </main>
 
-  <footer class="atlas-footer">
-    <div class="container-wide">
+  <footer class="footer">
+    <div class="container">
       <div class="footer-row">
         <div class="brand-foot">Flashcart <em>2026</em></div>
-        <nav>
-          <a href="../index.html">Public landing</a> ·
+        <nav class="links">
+          <a href="../index.html">Public landing</a>
           <a href="https://github.com/derrick-pixel/flashcart-research">GitHub</a>
         </nav>
       </div>
@@ -130,34 +127,7 @@
     </div>
   </footer>
 
-  <script>
-    (function(){
-      var KEY = 'flashcart-theme';
-      var THEMES = ['editorial','modern'];
-      function apply(t){
-        if (THEMES.indexOf(t) === -1) t = 'editorial';
-        document.body.classList.remove('theme-editorial','theme-modern');
-        document.body.classList.add('theme-'+t);
-        var bs = document.querySelectorAll('.theme-switch button');
-        for (var i=0;i<bs.length;i++){
-          var m = bs[i].dataset.theme === t;
-          bs[i].classList.toggle('active', m);
-          bs[i].setAttribute('aria-pressed', m ? 'true':'false');
-        }
-      }
-      var saved = null;
-      try { saved = localStorage.getItem(KEY); } catch(e){}
-      apply(saved && THEMES.indexOf(saved)!==-1 ? saved : 'editorial');
-      var bs = document.querySelectorAll('.theme-switch button');
-      for (var i=0;i<bs.length;i++){
-        bs[i].addEventListener('click', function(ev){
-          var t = ev.currentTarget.dataset.theme;
-          apply(t);
-          try { localStorage.setItem(KEY, t); } catch(e){}
-        });
-      }
-    })();
-  </script>
+  <script src="../assets/js/dual-theme.js"></script>
 
   <script type="module">
     import { loadAppData, mountSampleBanner } from '../assets/js/app.js';
@@ -190,7 +160,7 @@
 
     renderMarketFunnel(document.getElementById('market-size'), ms);
 
-    const policyColor = s => s === 'support' ? 'var(--band-green)' : s === 'against' ? 'var(--band-red)' : 'var(--muted)';
+    const policyColor = s => s === 'support' ? '#0a8a4a' : s === 'against' ? '#b91c1c' : 'var(--ink-3)';
     mount(document.getElementById('policies'), ...market.policies.map(p =>
       h('div', { class: 'top5-card', style: { borderLeftColor: policyColor(p.sentiment) } },
         h('h3', {}, p.title),
@@ -222,12 +192,12 @@
     mount(document.getElementById('tiers'), ...pricing.recommended_tiers.map(t =>
       h('div', { class: 'top5-card' },
         h('h3', {}, t.name),
-        h('p', { style: { fontSize: '32px', fontWeight: '800', color: 'var(--accent)', fontFamily: 'var(--font-head)', margin: '6px 0' } },
-          `S$${t.price_sgd}`, h('span', { style: { fontSize: '14px', fontWeight: '400', color: 'var(--muted)' } }, '/mo')
+        h('p', { style: { fontSize: '32px', fontWeight: '800', color: 'var(--primary)', fontFamily: 'inherit', margin: '6px 0' } },
+          `S$${t.price_sgd}`, h('span', { style: { fontSize: '14px', fontWeight: '400', color: 'var(--ink-3)' } }, '/mo')
         ),
         h('p', {}, h('em', {}, t.target_persona)),
         h('ul', {}, t.what_in.map(i => h('li', {}, i))),
-        h('p', { style: { fontStyle: 'italic', color: 'var(--muted)' } }, t.psychological_anchor),
+        h('p', { style: { fontStyle: 'italic', color: 'var(--ink-3)' } }, t.psychological_anchor),
         h('p', {}, h('strong', {}, 'After PSG: '), `S$${t.effective_price_after_psg}/mo`)
       )
     ));

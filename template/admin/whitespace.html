@@ -6,80 +6,77 @@
   <title>Whitespace Atlas — Flashcart 2026</title>
   <meta name="description" content="Flashcart 2026 whitespace atlas: strategy canvas, segment×need heatmap, ranked attack plans with ICP, TAM, gap rationale, and GTM channel.">
   <meta name="robots" content="noindex, follow">
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700;900&family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400&family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/dual-theme.css">
   <link rel="stylesheet" href="../assets/css/admin.css">
-  <link rel="stylesheet" href="../assets/css/site.css">
   <script src="../assets/vendor/chart.umd.js"></script>
 </head>
 <body class="theme-editorial">
 
   <div class="theme-switch" role="group" aria-label="Theme switcher">
     <button data-theme="editorial" class="active" type="button">Editorial</button>
-    <button data-theme="modern" type="button">Modern</button>
+    <button data-theme="saas" type="button">Modern</button>
   </div>
 
-  <header class="atlas-top">
-    <div class="container-wide">
-      <div class="nav-row">
-        <a href="index.html" class="brand">
-          <span class="mark">FC</span>
-          Flashcart <em>2026</em>
-        </a>
-        <nav class="atlas-nav" aria-label="Admin sections">
-          <a href="index.html">Competitors</a>
-          <a href="insights.html">Market &amp; Pricing</a>
-          <a href="whitespace.html" class="active">Whitespace Atlas</a>
-          <a href="design-audit.html">Design Audit</a>
-          <a href="report.html">Report</a>
-          <span class="spacer"></span>
-          <a href="../index.html">← Back to site</a>
-        </nav>
-      </div>
+  <header class="nav">
+    <div class="container nav-row">
+      <a href="index.html" class="brand">
+        Flashcart <em>2026</em>
+      </a>
+      <nav class="links" aria-label="Admin sections">
+        <a href="index.html">Competitors</a>
+        <a href="insights.html">Market &amp; Pricing</a>
+        <a href="whitespace.html" class="active">Whitespace Atlas</a>
+        <a href="design-audit.html">Design Audit</a>
+        <a href="report.html">Report</a>
+      </nav>
+      <a href="../index.html" class="nav-cta">← Back to site</a>
+    </div>
+    <div class="container">
       <div class="issue-strip">
         <span>Vol. 01 · No. 1</span>
         <span>Q2 2026</span>
         <span>Segment × Need · attack plans</span>
-        <span>Flashcart Research</span>
+        <span>An Elitez Group title</span>
       </div>
     </div>
   </header>
 
   <main>
     <section class="section">
-      <div class="container-wide">
+      <div class="container">
         <div class="label">§ I — Whitespace atlas</div>
         <h1>Where the category is empty.</h1>
-        <p class="lede">Three artefacts work together to identify where flashcart can win. The strategy canvas radar shows where competitors cluster; the segment×need heatmap counts how many competitors genuinely serve each pair (score ≥ 3) — green is open whitespace, amber contested, red crowded; the ranked attack plans are concrete go-to-market specs with ICP, TAM, gap thesis, why-we-win argument, and a GTM channel with pitch, pricing, and content idea.</p>
+        <p class="lede">Three artefacts work together to identify where Flashcart can win. The strategy canvas radar shows where competitors cluster; the segment×need heatmap counts how many competitors genuinely serve each pair (score ≥ 3) — green is open whitespace, amber contested, red crowded; the ranked attack plans are concrete go-to-market specs with ICP, TAM, gap thesis, why-we-win argument, and a GTM channel with pitch, pricing, and content idea.</p>
       </div>
     </section>
 
     <section class="section">
-      <div class="container-wide radar-container">
+      <div class="container">
         <div class="artefact-label">ARTIFACT 01</div>
         <h2>Strategy canvas.</h2>
         <p class="radar-thesis" id="thesis"></p>
-        <div style="height: 520px;"><canvas id="radar-canvas"></canvas></div>
+        <div class="radar-container" style="height: 520px;"><canvas id="radar-canvas"></canvas></div>
       </div>
     </section>
 
     <section class="section">
-      <div class="container-wide">
+      <div class="container">
         <div class="artefact-label">ARTIFACT 02</div>
         <h2 id="heatmap-title">Segment × need heatmap.</h2>
         <p class="lede">Each cell: count of competitors genuinely serving that pair (score ≥ 3). Click any cell for detail.</p>
         <div id="heatmap"></div>
         <div class="legend">
-          <span><span class="legend-swatch" style="background: var(--band-green-soft);"></span>Green 0–1 · whitespace</span>
-          <span><span class="legend-swatch" style="background: var(--band-amber-soft);"></span>Amber 2–3 · contested</span>
-          <span><span class="legend-swatch" style="background: var(--band-red-soft);"></span>Red 4+ · crowded</span>
+          <span><span class="legend-swatch" style="background: #dcfce7;"></span>Green 0–1 · whitespace</span>
+          <span><span class="legend-swatch" style="background: #fef3c7;"></span>Amber 2–3 · contested</span>
+          <span><span class="legend-swatch" style="background: #fee2e2;"></span>Red 4+ · crowded</span>
         </div>
         <div id="cell-detail" class="cell-detail" style="display: none;"></div>
       </div>
     </section>
 
     <section class="section">
-      <div class="container-wide">
+      <div class="container">
         <div class="artefact-label">ARTIFACT 03</div>
         <h2>Attack plans.</h2>
         <p class="lede">Ranked niches with ICP, TAM estimate with reasoning, gap thesis, why-we-win, and GTM channel.</p>
@@ -88,12 +85,12 @@
     </section>
   </main>
 
-  <footer class="atlas-footer">
-    <div class="container-wide">
+  <footer class="footer">
+    <div class="container">
       <div class="footer-row">
         <div class="brand-foot">Flashcart <em>2026</em></div>
-        <nav>
-          <a href="../index.html">Public landing</a> ·
+        <nav class="links">
+          <a href="../index.html">Public landing</a>
           <a href="https://github.com/derrick-pixel/flashcart-research">GitHub</a>
         </nav>
       </div>
@@ -101,34 +98,7 @@
     </div>
   </footer>
 
-  <script>
-    (function(){
-      var KEY = 'flashcart-theme';
-      var THEMES = ['editorial','modern'];
-      function apply(t){
-        if (THEMES.indexOf(t) === -1) t = 'editorial';
-        document.body.classList.remove('theme-editorial','theme-modern');
-        document.body.classList.add('theme-'+t);
-        var bs = document.querySelectorAll('.theme-switch button');
-        for (var i=0;i<bs.length;i++){
-          var m = bs[i].dataset.theme === t;
-          bs[i].classList.toggle('active', m);
-          bs[i].setAttribute('aria-pressed', m ? 'true':'false');
-        }
-      }
-      var saved = null;
-      try { saved = localStorage.getItem(KEY); } catch(e){}
-      apply(saved && THEMES.indexOf(saved)!==-1 ? saved : 'editorial');
-      var bs = document.querySelectorAll('.theme-switch button');
-      for (var i=0;i<bs.length;i++){
-        bs[i].addEventListener('click', function(ev){
-          var t = ev.currentTarget.dataset.theme;
-          apply(t);
-          try { localStorage.setItem(KEY, t); } catch(e){}
-        });
-      }
-    })();
-  </script>
+  <script src="../assets/js/dual-theme.js"></script>
 
   <script type="module">
     import { loadAppData, mountSampleBanner } from '../assets/js/app.js';

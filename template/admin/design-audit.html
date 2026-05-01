@@ -6,47 +6,44 @@
   <title>Design Audit — Flashcart 2026</title>
   <meta name="description" content="Flashcart 2026 design audit: every competitor scored on five dimensions for a weighted 1–10 rating, sorted by score, with screenshots and reviewer notes.">
   <meta name="robots" content="noindex, follow">
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700;900&family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400&family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/dual-theme.css">
   <link rel="stylesheet" href="../assets/css/admin.css">
-  <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body class="theme-editorial">
 
   <div class="theme-switch" role="group" aria-label="Theme switcher">
     <button data-theme="editorial" class="active" type="button">Editorial</button>
-    <button data-theme="modern" type="button">Modern</button>
+    <button data-theme="saas" type="button">Modern</button>
   </div>
 
-  <header class="atlas-top">
-    <div class="container-wide">
-      <div class="nav-row">
-        <a href="index.html" class="brand">
-          <span class="mark">FC</span>
-          Flashcart <em>2026</em>
-        </a>
-        <nav class="atlas-nav" aria-label="Admin sections">
-          <a href="index.html">Competitors</a>
-          <a href="insights.html">Market &amp; Pricing</a>
-          <a href="whitespace.html">Whitespace Atlas</a>
-          <a href="design-audit.html" class="active">Design Audit</a>
-          <a href="report.html">Report</a>
-          <span class="spacer"></span>
-          <a href="../index.html">← Back to site</a>
-        </nav>
-      </div>
+  <header class="nav">
+    <div class="container nav-row">
+      <a href="index.html" class="brand">
+        Flashcart <em>2026</em>
+      </a>
+      <nav class="links" aria-label="Admin sections">
+        <a href="index.html">Competitors</a>
+        <a href="insights.html">Market &amp; Pricing</a>
+        <a href="whitespace.html">Whitespace Atlas</a>
+        <a href="design-audit.html" class="active">Design Audit</a>
+        <a href="report.html">Report</a>
+      </nav>
+      <a href="../index.html" class="nav-cta">← Back to site</a>
+    </div>
+    <div class="container">
       <div class="issue-strip">
         <span>Vol. 01 · No. 1</span>
         <span>Q2 2026</span>
         <span>Five-dimension rubric · weighted 1–10</span>
-        <span>Flashcart Research</span>
+        <span>An Elitez Group title</span>
       </div>
     </div>
   </header>
 
   <main>
     <section class="section">
-      <div class="container-wide">
+      <div class="container">
         <div class="label">§ I — Website design audit</div>
         <h1>Sites that work. <em>And sites that don't.</em></h1>
         <p class="lede">Every competitor in the run is rated on five design dimensions — visual hierarchy, content density, mobile responsiveness, findability under three buyer intents, and editorial trust signals — then aggregated to a single weighted 1–10 score. Any sub-dimension scoring six or below is required to carry a written reviewer note. Cards are sorted by overall design rating, highest first. Top scores tell you who to study; bottom scores tell you where the category is weak.</p>
@@ -54,7 +51,7 @@
     </section>
 
     <section class="section">
-      <div class="container-wide">
+      <div class="container">
         <div class="label">§ II — Competitor sites, ranked</div>
         <h2>By weighted design rating.</h2>
         <div id="gallery" class="grid-3" style="margin-top: 24px;"></div>
@@ -62,12 +59,12 @@
     </section>
   </main>
 
-  <footer class="atlas-footer">
-    <div class="container-wide">
+  <footer class="footer">
+    <div class="container">
       <div class="footer-row">
         <div class="brand-foot">Flashcart <em>2026</em></div>
-        <nav>
-          <a href="../index.html">Public landing</a> ·
+        <nav class="links">
+          <a href="../index.html">Public landing</a>
           <a href="https://github.com/derrick-pixel/flashcart-research">GitHub</a>
         </nav>
       </div>
@@ -75,34 +72,7 @@
     </div>
   </footer>
 
-  <script>
-    (function(){
-      var KEY = 'flashcart-theme';
-      var THEMES = ['editorial','modern'];
-      function apply(t){
-        if (THEMES.indexOf(t) === -1) t = 'editorial';
-        document.body.classList.remove('theme-editorial','theme-modern');
-        document.body.classList.add('theme-'+t);
-        var bs = document.querySelectorAll('.theme-switch button');
-        for (var i=0;i<bs.length;i++){
-          var m = bs[i].dataset.theme === t;
-          bs[i].classList.toggle('active', m);
-          bs[i].setAttribute('aria-pressed', m ? 'true':'false');
-        }
-      }
-      var saved = null;
-      try { saved = localStorage.getItem(KEY); } catch(e){}
-      apply(saved && THEMES.indexOf(saved)!==-1 ? saved : 'editorial');
-      var bs = document.querySelectorAll('.theme-switch button');
-      for (var i=0;i<bs.length;i++){
-        bs[i].addEventListener('click', function(ev){
-          var t = ev.currentTarget.dataset.theme;
-          apply(t);
-          try { localStorage.setItem(KEY, t); } catch(e){}
-        });
-      }
-    })();
-  </script>
+  <script src="../assets/js/dual-theme.js"></script>
 
   <script type="module">
     import { loadAppData, mountSampleBanner } from '../assets/js/app.js';
@@ -114,11 +84,11 @@
       h('div', { class: 'top5-card' },
         h('h3', {},
           c.name,
-          h('span', { style: { float: 'right', background: 'var(--accent)', color: '#fff', padding: '3px 10px', fontFamily: 'var(--font-mono)', fontSize: '13px', fontWeight: '700' } }, `${c.website_design_rating ?? '—'}/10`)
+          h('span', { style: { float: 'right', background: 'var(--primary)', color: '#fff', padding: '3px 10px', fontFamily: 'JetBrains Mono, monospace', fontSize: '13px', fontWeight: '700' } }, `${c.website_design_rating ?? '—'}/10`)
         ),
-        h('p', { style: { color: 'var(--muted)', fontSize: '13px', wordBreak: 'break-all' } }, c.url),
+        h('p', { style: { color: 'var(--ink-3)', fontSize: '13px', wordBreak: 'break-all' } }, c.url),
         c.website_screenshot_path
-          ? h('img', { src: `../${c.website_screenshot_path}`, alt: c.name, style: { width: '100%', margin: '12px 0', border: '1px solid var(--border)' } })
+          ? h('img', { src: `../${c.website_screenshot_path}`, alt: c.name, style: { width: '100%', margin: '12px 0', border: '1px solid var(--rule, var(--line))' } })
           : null,
         h('p', {}, c.website_design_notes || 'No notes.')
       )
