@@ -4,88 +4,154 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Competitor Landscape — Flashcart 2026</title>
-  <meta name="description" content="Sample competitor landscape dashboard bundled with the competitor-intel-template fork. Top-5 threats, full competitor database, search and filters. Replace /data before shipping.">
+  <meta name="description" content="Flashcart 2026 competitor landscape: top-5 threats in the SG corporate-event onsite-commerce category, full competitor database with searchable filters across 42 firms.">
   <meta name="robots" content="noindex, follow">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
   <link rel="stylesheet" href="../assets/css/site.css">
 <script type="application/ld+json" data-injected="schema-jsonld">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "competitor-intel-template",
-  "url": "https://derrickteo.com/competitor-intel/",
-  "description": "A 9-agent competitive analysis pipeline producing typed JSON handoffs for downstream construction toolkits."
-}
-</script>
-<script type="application/ld+json" data-injected="schema-jsonld">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "competitor-intel-template",
-  "url": "https://derrickteo.com/competitor-intel/"
+  "name": "Flashcart 2026",
+  "url": "https://derrickteo.com/flashcart-research/",
+  "description": "Onsite event commerce — flash retail for SG corporate events, D&Ds, and HR engagement programs."
 }
 </script>
 </head>
-<body>
-  <header>
-  <nav class="admin-nav">
-    <a href="index.html" class="active">Competitors</a>
-    <a href="insights.html">Market &amp; Pricing</a>
-    <a href="whitespace.html">Whitespace Atlas</a>
-    <a href="design-audit.html">Design Audit</a>
-    <a href="report.html">Report</a>
-    <a href="../index.html" style="margin-left: auto;">← Back to site</a>
-  </nav>
+<body class="theme-editorial">
+
+  <div class="theme-switch" role="group" aria-label="Theme switcher">
+    <button data-theme="editorial" class="active" type="button">Editorial</button>
+    <button data-theme="modern" type="button">Modern</button>
+  </div>
+
+  <header class="atlas-top">
+    <div class="container-wide">
+      <div class="nav-row">
+        <a href="index.html" class="brand">
+          <span class="mark">FC</span>
+          Flashcart <em>2026</em>
+        </a>
+        <nav class="atlas-nav" aria-label="Admin sections">
+          <a href="index.html" class="active">Competitors</a>
+          <a href="insights.html">Market &amp; Pricing</a>
+          <a href="whitespace.html">Whitespace Atlas</a>
+          <a href="design-audit.html">Design Audit</a>
+          <a href="report.html">Report</a>
+          <span class="spacer"></span>
+          <a href="../index.html">← Back to site</a>
+        </nav>
+      </div>
+      <div class="issue-strip">
+        <span>Vol. 01 · No. 1</span>
+        <span>Q2 2026</span>
+        <span>Singapore · onsite event commerce</span>
+        <span>Flashcart Research</span>
+      </div>
+    </div>
   </header>
 
-  <main class="container-wide">
-    <h1>Competitor Landscape</h1>
-    <p id="count-line" style="opacity: 0.7;"></p>
-    <p style="max-width:720px;line-height:1.6;opacity:0.85;">This admin view renders the competitor landscape from <code>/data/competitors.json</code>. It surfaces the top-5 threats with rationale, plus the full competitor database scored on threat level, beatability, monthly pricing in SGD, headquartered region, and website design rating. Search by name, value proposition, HQ city, or feature set; filter by category (global incumbent, SG local, regional challenger, DIY alternative, adjacent), HQ region, and minimum threat level. The data layer is produced by the 9-agent competitor-intel pipeline; the rest of the dashboard (insights, whitespace atlas, design audit, board report) is reachable from the top navigation.</p>
-
-    <section style="margin: 32px 0;">
-      <h2>Top 5 threats</h2>
-      <p style="opacity:0.8;font-size:14px;">The five competitors most likely to win deals you should be winning, with the specific reasons drawn from the top_five rationale field.</p>
-      <div id="top5-list"></div>
+  <main>
+    <section class="section">
+      <div class="container-wide">
+        <div class="label">§ I — Competitor landscape</div>
+        <h1>Who plays in onsite event commerce.</h1>
+        <p id="count-line" class="lede" style="margin-bottom: 8px;"></p>
+        <p class="lede">This admin renders the competitor landscape from <code>/data/competitors.json</code>. It surfaces the top-five threats with rationale, plus the full database scored on threat level, beatability, monthly pricing, headquartered region, and website design rating. Search by name, value proposition, HQ city, or feature set; filter by category (big SI, SG local, regional challenger, DIY alternative, adjacent), HQ region, and minimum threat level.</p>
+      </div>
     </section>
 
-    <section>
-      <h2>Full competitor database</h2>
-      <p style="opacity:0.8;font-size:14px;">Every competitor profiled in the run, scored across the dimensions your buyer evaluates. Click a name to open the source URL in a new tab.</p>
-      <input type="search" class="search-bar" id="search-input" placeholder="Search by name, value prop, HQ, feature...">
-      <div id="filters" style="display: flex; gap: 16px; margin-bottom: 16px;">
-        <select name="filter-category">
-          <option value="">All categories</option>
-          <option value="global_incumbent">Global incumbent</option>
-          <option value="sg_local">SG local</option>
-          <option value="regional_challenger">Regional challenger</option>
-          <option value="diy_alternative">DIY alternative</option>
-          <option value="adjacent">Adjacent</option>
-        </select>
-        <select name="filter-hqRegion">
-          <option value="">All regions</option>
-          <option value="SEA">SEA</option>
-          <option value="Global">Global</option>
-          <option value="APAC">APAC</option>
-        </select>
-        <select name="filter-threatLevelMin">
-          <option value="">Any threat level</option>
-          <option value="3">≥ 3</option>
-          <option value="4">≥ 4</option>
-          <option value="5">= 5</option>
-        </select>
+    <section class="section">
+      <div class="container-wide">
+        <div class="label">§ II — Top-5 threats</div>
+        <h2>The five firms most likely to <em>win deals</em> we should win.</h2>
+        <p class="lede">Drawn from the <code>top_five</code> rationale field. Pico, Giftano, OnTheList, HoneySpree — and DIY (HR runs it themselves) — define the win-loss frontier.</p>
+        <div id="top5-list"></div>
       </div>
-      <table class="competitor-table">
-        <thead><tr>
-          <th>Name</th><th>Category</th><th>HQ</th><th>S$/mo</th><th>Threat</th><th>Beatability</th><th>Design</th>
-        </tr></thead>
-        <tbody id="competitor-tbody"></tbody>
-      </table>
+    </section>
+
+    <section class="section">
+      <div class="container-wide">
+        <div class="label">§ III — Full database</div>
+        <h2>Every competitor profiled, <em>scored on the dimensions</em> the buyer evaluates.</h2>
+        <p class="lede">Click a name to open the source URL in a new tab.</p>
+        <input type="search" class="search-bar" id="search-input" placeholder="Search by name, value prop, HQ, feature…">
+        <div id="filters">
+          <select name="filter-category">
+            <option value="">All categories</option>
+            <option value="global_incumbent">Global incumbent</option>
+            <option value="big_si">Big SI / agency</option>
+            <option value="sg_local">SG local</option>
+            <option value="regional_challenger">Regional challenger</option>
+            <option value="diy_alternative">DIY alternative</option>
+            <option value="adjacent">Adjacent</option>
+          </select>
+          <select name="filter-hqRegion">
+            <option value="">All regions</option>
+            <option value="SEA">SEA</option>
+            <option value="APAC">APAC</option>
+            <option value="Global">Global</option>
+          </select>
+          <select name="filter-threatLevelMin">
+            <option value="">Any threat level</option>
+            <option value="3">≥ 3</option>
+            <option value="4">≥ 4</option>
+            <option value="5">= 5</option>
+          </select>
+        </div>
+        <table class="competitor-table">
+          <thead><tr>
+            <th>Name</th><th>Category</th><th>HQ</th><th>S$/mo</th><th>Threat</th><th>Beat</th><th>Design</th>
+          </tr></thead>
+          <tbody id="competitor-tbody"></tbody>
+        </table>
+      </div>
     </section>
   </main>
 
-  <footer style="padding:24px;border-top:1px solid #e5e5e5;font-size:12px;color:#666;">
-    <p>Sample data view · <a href="../index.html">Public landing</a> · <a href="https://github.com/derrick-pixel/competitor-intel-template">competitor-intel-template</a></p>
+  <footer class="atlas-footer">
+    <div class="container-wide">
+      <div class="footer-row">
+        <div class="brand-foot">Flashcart <em>2026</em></div>
+        <nav>
+          <a href="../index.html">Public landing</a> ·
+          <a href="https://github.com/derrick-pixel/flashcart-research">GitHub</a>
+        </nav>
+      </div>
+      <p class="copy">Onsite event commerce for SG corporate events, D&amp;Ds, and HR engagement programs. An Elitez Group title.</p>
+    </div>
   </footer>
+
+  <script>
+    (function(){
+      var KEY = 'flashcart-theme';
+      var THEMES = ['editorial','modern'];
+      function apply(t){
+        if (THEMES.indexOf(t) === -1) t = 'editorial';
+        document.body.classList.remove('theme-editorial','theme-modern');
+        document.body.classList.add('theme-'+t);
+        var bs = document.querySelectorAll('.theme-switch button');
+        for (var i=0;i<bs.length;i++){
+          var m = bs[i].dataset.theme === t;
+          bs[i].classList.toggle('active', m);
+          bs[i].setAttribute('aria-pressed', m ? 'true':'false');
+        }
+      }
+      var saved = null;
+      try { saved = localStorage.getItem(KEY); } catch(e){}
+      apply(saved && THEMES.indexOf(saved)!==-1 ? saved : 'editorial');
+      var bs = document.querySelectorAll('.theme-switch button');
+      for (var i=0;i<bs.length;i++){
+        bs[i].addEventListener('click', function(ev){
+          var t = ev.currentTarget.dataset.theme;
+          apply(t);
+          try { localStorage.setItem(KEY, t); } catch(e){}
+        });
+      }
+    })();
+  </script>
 
   <script type="module">
     import { loadAppData, mountSampleBanner } from '../assets/js/app.js';

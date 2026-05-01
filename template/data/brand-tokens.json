@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "project_name": "Flashcart 2026",
+    "brand_tokens": {
+      "primary": "#dc2626",
+      "secondary": "#facc15",
+      "accent": "#fbbf24",
+      "neutral_dark": "#111827",
+      "neutral_light": "#fef9c3",
+      "font_display": "Inter Tight, sans-serif",
+      "font_body": "Inter, sans-serif"
+    },
+    "research_date": "2026-05-01",
+    "sample_data": false
+  },
+  "extracted_from": {
+    "type": "manual_override",
+    "reference": "agent-9-pass-2026-05-01",
+    "captured_at": "2026-05-01"
+  },
+  "tokens": {
+    "bg": "#fffbea",
+    "surface": "#fef9c3",
+    "card": "#ffffff",
+    "card_hi": "#fef3c7",
+    "text": "#111827",
+    "muted": "#52525b",
+    "border": "rgba(17,24,39,0.10)",
+    "accent": "#dc2626",
+    "accent2": "#facc15",
+    "accent3": "#fbbf24",
+    "band_green": "#16a34a",
+    "band_amber": "#d97706",
+    "band_red": "#b91c1c",
+    "theme_mode": "light",
+    "font_head": "'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif",
+    "font_body": "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+    "font_mono": "'JetBrains Mono', ui-monospace, monospace"
+  },
+  "font_imports": [
+    "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@400;500;700;900&display=swap"
+  ],
+  "notes": "Flashcart's flash-sale brand: primary #dc2626 oxblood/red, secondary #facc15 saffron yellow, warm cream surfaces. Theme mode is light because background is cream #fef9c3. Display font Inter Tight (sans-serif) matches energetic ecommerce category; Playfair Display imported for the magazine masthead H1/H2 to match the Editorial/Modern theme switcher reference pattern."
+}

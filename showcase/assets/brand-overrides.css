@@ -1,0 +1,33 @@
+/* ============================================================
+   FLASHCART 2026 — brand overrides on top of dual-theme.css
+   Re-paints the editorial + saas variants with flashcart palette.
+   Loaded AFTER dual-theme.css so cascade wins.
+   ============================================================ */
+
+/* Editorial · flashcart palette */
+body.theme-editorial {
+  --paper:   #fffbea;          /* warmer cream */
+  --paper-2: #fef9c3;          /* saffron-tinted secondary surface */
+  --ink:     #111827;          /* slate near-black */
+  --ink-2:   #374151;
+  --ink-3:   #6b7280;
+  --rule:    #fde68a;          /* amber hairline rule */
+  --oxblood: #dc2626;          /* flash-sale red */
+  --gold:    #b45309;          /* warm amber for accents */
+  --primary: var(--oxblood);
+}
+body.theme-editorial .nav { border-top-color: var(--oxblood); }
+body.theme-editorial .footer { border-top-color: var(--oxblood); }
+
+/* Issue-strip tagline override */
+body.theme-editorial .issue-strip span:first-child { color: var(--oxblood); }
+
+/* Modern (saas) · flashcart accents */
+body.theme-saas {
+  --primary:      #dc2626;
+  --primary-2:    #facc15;
+  --primary-soft: rgba(220,38,38,0.08);
+  --grad: linear-gradient(135deg, #dc2626 0%, #f97316 50%, #facc15 100%);
+  --grad-soft: linear-gradient(135deg, rgba(220,38,38,0.10), rgba(249,115,22,0.06), rgba(250,204,21,0.04));
+}
+body.theme-saas .nav .nav-cta:hover { background: var(--primary); }

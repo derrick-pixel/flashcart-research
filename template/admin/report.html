@@ -4,61 +4,119 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Report — Flashcart 2026</title>
-  <meta name="description" content="Sample board-grade competitive intelligence report preview from competitor-intel-template, with one-click PDF generation, four-phase pre-flight validation, and full deliverable layout.">
+  <meta name="description" content="Flashcart 2026 board-grade competitive intelligence report preview, with one-click PDF generation, four-phase pre-flight validation, and full deliverable layout.">
   <meta name="robots" content="noindex, follow">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
   <link rel="stylesheet" href="../assets/css/site.css">
   <link rel="stylesheet" href="../assets/css/report.css">
   <script src="../assets/vendor/chart.umd.js"></script>
   <script src="../assets/vendor/html2canvas.min.js"></script>
   <script src="../assets/vendor/jspdf.umd.min.js"></script>
-<script type="application/ld+json" data-injected="schema-jsonld">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "competitor-intel-template",
-  "url": "https://derrickteo.com/competitor-intel/",
-  "description": "A 9-agent competitive analysis pipeline producing typed JSON handoffs for downstream construction toolkits."
-}
-</script>
-<script type="application/ld+json" data-injected="schema-jsonld">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "competitor-intel-template",
-  "url": "https://derrickteo.com/competitor-intel/"
-}
-</script>
 </head>
-<body>
-  <header>
-  <nav class="admin-nav">
-    <a href="index.html">Competitors</a>
-    <a href="insights.html">Market &amp; Pricing</a>
-    <a href="whitespace.html">Whitespace Atlas</a>
-    <a href="design-audit.html">Design Audit</a>
-    <a href="report.html" class="active">Report</a>
-    <a href="../index.html" style="margin-left: auto;">← Back to site</a>
-  </nav>
+<body class="theme-editorial">
+
+  <div class="theme-switch" role="group" aria-label="Theme switcher">
+    <button data-theme="editorial" class="active" type="button">Editorial</button>
+    <button data-theme="modern" type="button">Modern</button>
+  </div>
+
+  <header class="atlas-top">
+    <div class="container-wide">
+      <div class="nav-row">
+        <a href="index.html" class="brand">
+          <span class="mark">FC</span>
+          Flashcart <em>2026</em>
+        </a>
+        <nav class="atlas-nav" aria-label="Admin sections">
+          <a href="index.html">Competitors</a>
+          <a href="insights.html">Market &amp; Pricing</a>
+          <a href="whitespace.html">Whitespace Atlas</a>
+          <a href="design-audit.html">Design Audit</a>
+          <a href="report.html" class="active">Report</a>
+          <span class="spacer"></span>
+          <a href="../index.html">← Back to site</a>
+        </nav>
+      </div>
+      <div class="issue-strip">
+        <span>Vol. 01 · No. 1</span>
+        <span>Q2 2026</span>
+        <span>Board-grade · 10–14 pages</span>
+        <span>Flashcart Research</span>
+      </div>
+    </div>
   </header>
 
-  <main class="container-wide">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <h1>Full Report Preview</h1>
-      <button id="download-btn" style="padding: 12px 24px; background: var(--brand-primary); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer;">Generate PDF</button>
-    </div>
-    <p style="max-width:760px;line-height:1.6;opacity:0.85;margin-top:18px;">This view stitches every artefact in the run into a board-grade PDF: cover, executive summary, market sizing funnel, competitor landscape with the top-five threat brief, pricing strategy with personas and recommended tiers, whitespace atlas (strategy canvas + heatmap + attack plans), design audit, and a methodology appendix with the full data lineage. Click <em>Generate PDF</em> to rasterise the layout below at print resolution; before generating, the four-phase pre-flight validator confirms every required field is populated, every numeric multiplier has a source, every claim has a citation, and every visualisation rendered without error. If pre-flight fails the violations are listed inline so you can re-dispatch the responsible agent.</p>
-    <div id="progress" style="display: none; margin: 16px 0;"><progress id="progress-bar" max="100" value="0" style="width: 100%;"></progress> <span id="progress-text"></span></div>
-    <div id="preflight-fail" style="display: none; margin: 16px 0; padding: 16px; border: 2px solid #b91c1c; background: #fef2f2; border-radius: 8px;">
-      <strong style="color: #b91c1c;">Phase 4 pre-flight failed — PDF not generated.</strong>
-      <ul id="preflight-fail-list" style="margin: 8px 0 0 20px; font-family: var(--font-mono, monospace); font-size: 13px;"></ul>
-      <p style="margin-top: 8px; font-size: 13px;">Fix the violations above (re-dispatch the responsible agent if needed), reload, and try Generate again. See <code>methodology/08-report-generator.md §Pre-flight Phase 4</code>.</p>
-    </div>
-    <div id="pdf-root" class="pdf-root"></div>
+  <main>
+    <section class="section">
+      <div class="container-wide">
+        <div class="label">§ I — Full report preview</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+          <h1 style="margin-bottom: 0;">Full report preview.</h1>
+          <button id="download-btn" class="btn-primary">Generate PDF</button>
+        </div>
+        <p class="lede" style="margin-top: 18px;">This view stitches every artefact in the run into a board-grade PDF: cover, executive summary, market sizing funnel, competitor landscape with the top-five threat brief, pricing strategy with personas and recommended tiers, whitespace atlas (strategy canvas + heatmap + attack plans), design audit, and a methodology appendix. Click <em>Generate PDF</em> to rasterise the layout below at print resolution; before generating, the four-phase pre-flight validator confirms every required field is populated, every numeric multiplier has a source, every claim has a citation, and every visualisation rendered without error. If pre-flight fails the violations are listed inline so you can re-dispatch the responsible agent.</p>
+        <div id="progress" style="display: none; margin: 16px 0;">
+          <progress id="progress-bar" max="100" value="0" style="width: 100%;"></progress>
+          <span id="progress-text"></span>
+        </div>
+        <div id="preflight-fail" style="display: none; margin: 16px 0; padding: 16px; border: 2px solid var(--band-red); background: var(--band-red-soft);">
+          <strong style="color: var(--band-red);">Phase 4 pre-flight failed — PDF not generated.</strong>
+          <ul id="preflight-fail-list" style="margin: 8px 0 0 20px; font-family: var(--font-mono); font-size: 13px;"></ul>
+          <p style="margin-top: 8px; font-size: 13px;">Fix the violations above (re-dispatch the responsible agent if needed), reload, and try Generate again. See <code>methodology/08-report-generator.md §Pre-flight Phase 4</code>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container-wide">
+        <div id="pdf-root" class="pdf-root"></div>
+      </div>
+    </section>
   </main>
 
-  <footer style="padding:24px;border-top:1px solid #e5e5e5;font-size:12px;color:#666;">
-    <p>Sample data view · <a href="../index.html">Public landing</a> · <a href="https://github.com/derrick-pixel/competitor-intel-template">competitor-intel-template</a></p>
+  <footer class="atlas-footer">
+    <div class="container-wide">
+      <div class="footer-row">
+        <div class="brand-foot">Flashcart <em>2026</em></div>
+        <nav>
+          <a href="../index.html">Public landing</a> ·
+          <a href="https://github.com/derrick-pixel/flashcart-research">GitHub</a>
+        </nav>
+      </div>
+      <p class="copy">Onsite event commerce for SG corporate events, D&amp;Ds, and HR engagement programs. An Elitez Group title.</p>
+    </div>
   </footer>
+
+  <script>
+    (function(){
+      var KEY = 'flashcart-theme';
+      var THEMES = ['editorial','modern'];
+      function apply(t){
+        if (THEMES.indexOf(t) === -1) t = 'editorial';
+        document.body.classList.remove('theme-editorial','theme-modern');
+        document.body.classList.add('theme-'+t);
+        var bs = document.querySelectorAll('.theme-switch button');
+        for (var i=0;i<bs.length;i++){
+          var m = bs[i].dataset.theme === t;
+          bs[i].classList.toggle('active', m);
+          bs[i].setAttribute('aria-pressed', m ? 'true':'false');
+        }
+      }
+      var saved = null;
+      try { saved = localStorage.getItem(KEY); } catch(e){}
+      apply(saved && THEMES.indexOf(saved)!==-1 ? saved : 'editorial');
+      var bs = document.querySelectorAll('.theme-switch button');
+      for (var i=0;i<bs.length;i++){
+        bs[i].addEventListener('click', function(ev){
+          var t = ev.currentTarget.dataset.theme;
+          apply(t);
+          try { localStorage.setItem(KEY, t); } catch(e){}
+        });
+      }
+    })();
+  </script>
 
   <script type="module">
     import { loadAppData, mountSampleBanner } from '../assets/js/app.js';
