@@ -45,31 +45,37 @@
   <main>
     <section class="section">
       <div class="container">
-        <div class="label">§ I — Whitespace atlas</div>
-        <h1>Where the category is empty.</h1>
-        <p class="lede">Three artefacts work together to identify where Flashcart can win. The strategy canvas radar shows where competitors cluster; the segment×need heatmap counts how many competitors genuinely serve each pair (score ≥ 3) — green is open whitespace, amber contested, red crowded; the ranked attack plans are concrete go-to-market specs with ICP, TAM, gap thesis, why-we-win argument, and a GTM channel with pitch, pricing, and content idea.</p>
+        <div class="artefact-label">ARTIFACT 03 · WHITESPACE ATLAS</div>
+        <h1>Where the category is <em>empty</em>.</h1>
+        <p class="lede">Strategy canvas, segment×need heatmap, four ranked attack plans.</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="artefact-label">ARTIFACT 01</div>
-        <h2>Strategy canvas.</h2>
-        <p class="radar-thesis" id="thesis"></p>
-        <div class="radar-container" style="height: 520px;"><canvas id="radar-canvas"></canvas></div>
+        <div class="section-header">
+          <h2>Strategy canvas.</h2>
+          <span class="meta">8 dimensions · all named competitors</span>
+        </div>
+        <div class="chart-frame">
+          <div class="chart-title">Where competitors cluster — and where the field is empty.</div>
+          <div class="chart-sub" id="thesis"></div>
+          <div class="chart-canvas" style="height: 520px;"><canvas id="radar-canvas"></canvas></div>
+        </div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="artefact-label">ARTIFACT 02</div>
-        <h2 id="heatmap-title">Segment × need heatmap.</h2>
-        <p class="lede">Each cell: count of competitors genuinely serving that pair (score ≥ 3). Click any cell for detail.</p>
+        <div class="section-header">
+          <h2 id="heatmap-title">Segment × need heatmap.</h2>
+          <span class="meta" id="heatmap-meta"></span>
+        </div>
         <div id="heatmap"></div>
-        <div class="legend">
-          <span><span class="legend-swatch" style="background: #dcfce7;"></span>Green 0–1 · whitespace</span>
-          <span><span class="legend-swatch" style="background: #fef3c7;"></span>Amber 2–3 · contested</span>
-          <span><span class="legend-swatch" style="background: #fee2e2;"></span>Red 4+ · crowded</span>
+        <div class="legend compact" style="margin-top: 14px;">
+          <span class="swatch-chip"><span class="legend-swatch" style="background: #dcfce7;"></span>0–1 · whitespace</span>
+          <span class="swatch-chip"><span class="legend-swatch" style="background: #fef3c7;"></span>2–3 · contested</span>
+          <span class="swatch-chip"><span class="legend-swatch" style="background: #fee2e2;"></span>4+ · crowded</span>
         </div>
         <div id="cell-detail" class="cell-detail" style="display: none;"></div>
       </div>
@@ -77,10 +83,11 @@
 
     <section class="section">
       <div class="container">
-        <div class="artefact-label">ARTIFACT 03</div>
-        <h2>Attack plans.</h2>
-        <p class="lede">Ranked niches with ICP, TAM estimate with reasoning, gap thesis, why-we-win, and GTM channel.</p>
-        <div id="attack-plans"></div>
+        <div class="section-header">
+          <h2>Attack plans.</h2>
+          <span class="meta" id="attack-count"></span>
+        </div>
+        <div id="attack-plans" class="attack-grid"></div>
       </div>
     </section>
   </main>
@@ -109,10 +116,20 @@
     const { whitespace } = await loadAppData();
     mountSampleBanner();
 
+    /* ---------- Strategy canvas ---------- */
     document.getElementById('thesis').textContent = whitespace.strategy_canvas.headline_thesis;
-    renderRadar({ canvas: document.getElementById('radar-canvas'), dimensions: whitespace.strategy_canvas.dimensions, scores: whitespace.strategy_canvas.scores });
+    renderRadar({
+      canvas: document.getElementById('radar-canvas'),
+      dimensions: whitespace.strategy_canvas.dimensions,
+      scores: whitespace.strategy_canvas.scores
+    });
 
-    document.getElementById('heatmap-title').textContent = `Segment × need heatmap — ${whitespace.heatmap.segments.length} × ${whitespace.heatmap.needs.length}`;
+    /* ---------- Heatmap ---------- */
+    const segCount = whitespace.heatmap.segments.length;
+    const needCount = whitespace.heatmap.needs.length;
+    document.getElementById('heatmap-title').textContent = `Segment × need heatmap.`;
+    document.getElementById('heatmap-meta').textContent = `${segCount} segments × ${needCount} needs · ${segCount * needCount} cells`;
+
     const panel = document.getElementById('cell-detail');
     renderHeatmap({
       container: document.getElementById('heatmap'),
@@ -126,22 +143,69 @@
       }
     });
 
-    mount(document.getElementById('attack-plans'), ...whitespace.attack_plans.map(p =>
-      h('div', { class: 'attack-card' },
-        h('h3', {}, `#${p.rank} · ${p.niche_name}`),
-        h('p', {}, h('strong', {}, 'ICP: '), p.icp),
-        h('p', {}, h('strong', {}, 'TAM: '), `S$${p.tam_estimate_sgd.toLocaleString()} · `, h('em', {}, p.tam_reasoning)),
-        h('p', {}, h('strong', {}, 'Why gap: '), p.why_gap),
-        h('p', {}, h('strong', {}, 'Why we win: '), p.why_we_win),
-        h('h4', { style: { marginTop: '16px' } }, 'GTM'),
-        h('ul', {},
-          h('li', {}, h('strong', {}, 'Channel: '), p.gtm.channel),
-          h('li', {}, h('strong', {}, 'Pitch: '), p.gtm.pitch),
-          h('li', {}, h('strong', {}, 'Pricing: '), p.gtm.pricing),
-          h('li', {}, h('strong', {}, 'Content: '), p.gtm.content)
+    /* ---------- Attack plans (v2) ---------- */
+    const fmtTam = n => {
+      if (!n && n !== 0) return '—';
+      if (n >= 1e9) return 'S$' + (n / 1e9).toFixed(1).replace(/\.0$/, '') + 'B';
+      if (n >= 1e6) return 'S$' + (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
+      if (n >= 1e3) return 'S$' + (n / 1e3).toFixed(0) + 'k';
+      return 'S$' + n;
+    };
+    const padRank = n => String(n).padStart(2, '0');
+    const truncate = (s, max = 220) => {
+      if (!s) return '';
+      const t = String(s).trim();
+      return t.length > max ? t.slice(0, max - 1).replace(/\s+\S*$/, '') + '…' : t;
+    };
+
+    const attackCard = p => h('div', { class: 'attack-card-v2' },
+      h('div', { class: 'attack-head' },
+        h('div', { class: 'attack-rank-badge' }, padRank(p.rank)),
+        h('div', { class: 'attack-head-text' },
+          h('h3', {}, p.niche_name),
+          h('p', { class: 'attack-icp' }, p.icp || '')
+        ),
+        h('div', { class: 'attack-tam-chip' },
+          h('div', { class: 'tam-label' }, 'TAM'),
+          h('div', { class: 'tam-value' }, fmtTam(p.tam_estimate_sgd))
+        )
+      ),
+      h('div', { class: 'attack-body' },
+        h('div', { class: 'attack-body-cell' },
+          h('div', { class: 'attack-body-label' }, 'Why the gap'),
+          h('p', {}, truncate(p.why_gap, 360))
+        ),
+        h('div', { class: 'attack-body-cell' },
+          h('div', { class: 'attack-body-label' }, 'Why we win'),
+          h('p', {}, truncate(p.why_we_win, 360))
+        )
+      ),
+      h('div', { class: 'gtm-band' },
+        h('div', { class: 'gtm-band-label' }, 'GTM'),
+        h('div', { class: 'gtm-band-grid' },
+          h('div', { class: 'gtm-tile' },
+            h('span', { class: 'gtm-label' }, 'Channel'),
+            h('div', { class: 'gtm-value' }, truncate(p.gtm?.channel, 120))
+          ),
+          h('div', { class: 'gtm-tile' },
+            h('span', { class: 'gtm-label' }, 'Pitch'),
+            h('div', { class: 'gtm-value' }, truncate(p.gtm?.pitch, 120))
+          ),
+          h('div', { class: 'gtm-tile' },
+            h('span', { class: 'gtm-label' }, 'Pricing'),
+            h('div', { class: 'gtm-value' }, truncate(p.gtm?.pricing, 120))
+          ),
+          h('div', { class: 'gtm-tile' },
+            h('span', { class: 'gtm-label' }, 'Content'),
+            h('div', { class: 'gtm-value' }, truncate(p.gtm?.content, 120))
+          )
         )
       )
-    ));
+    );
+
+    const plans = whitespace.attack_plans || [];
+    mount(document.getElementById('attack-plans'), ...plans.map(attackCard));
+    document.getElementById('attack-count').textContent = `${plans.length} ranked plan${plans.length === 1 ? '' : 's'}`;
   </script>
 </body>
 </html>

@@ -45,71 +45,93 @@
   <main>
     <section class="section">
       <div class="container">
-        <div class="label">§ I — Market intelligence</div>
-        <h1>Market &amp; pricing intelligence.</h1>
-        <p class="lede">This view fuses two outputs of the pipeline. The market intelligence half renders TAM/SAM/SOM from <code>/data/market-intelligence.json</code>, the policy landscape (supportive vs adverse signal), country-readiness scores across regulatory, tech maturity, and price tolerance, and the target-market distribution. The pricing strategy half renders persona ICPs with willingness-to-pay bands, recommended tiers (with grant-effective post-PSG prices), and a competitor price comparison chart with the recommended tier line overlaid.</p>
+        <div class="artefact-label">ARTIFACT 02 · MARKET INTELLIGENCE</div>
+        <h1>Market &amp; <em>Pricing</em>.</h1>
+        <p class="lede">TAM/SAM/SOM, policy gravity, persona pricing — built for board reading.</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="label">§ II — Market size</div>
-        <h2>TAM → SAM → SOM. <em>Auditable derivation.</em></h2>
-        <div class="kpi-strip" id="market-kpis"></div>
+        <div class="section-header">
+          <h2>Market size.</h2>
+          <span class="meta" id="market-source-chip">auditable derivation</span>
+        </div>
+        <div class="kpi-grid" id="market-kpis"></div>
         <div id="market-size"></div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="label">§ III — Policy landscape</div>
-        <h2>Tailwinds and headwinds.</h2>
-        <div id="policies"></div>
+        <div class="section-header">
+          <h2>Policy landscape.</h2>
+          <span class="meta" id="policies-count"></span>
+        </div>
+        <div class="policy-grid" id="policies"></div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="label">§ IV — Country readiness</div>
-        <h2>Where the wedge expands next.</h2>
-        <table class="competitor-table">
-          <thead><tr><th>Country</th><th>Regulatory</th><th>Tech</th><th>Price tolerance</th></tr></thead>
-          <tbody id="country-tbody"></tbody>
-        </table>
+        <div class="section-header">
+          <h2>Country readiness.</h2>
+          <span class="meta">regulatory · tech · price tolerance</span>
+        </div>
+        <div class="country-table-frame">
+          <table class="country-table">
+            <thead><tr><th>Market</th><th>Regulatory</th><th>Tech</th><th>Price tolerance</th></tr></thead>
+            <tbody id="country-tbody"></tbody>
+          </table>
+        </div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="label">§ V — Target-market distribution</div>
-        <h2>Where the competitor field clusters.</h2>
-        <div class="artifact" style="height: 360px;"><canvas id="market-donut"></canvas></div>
+        <div class="chart-frame">
+          <div class="chart-title">Target-market distribution.</div>
+          <div class="chart-sub">Buyer-segment frequency across the mapped competitor field.</div>
+          <div class="chart-canvas" style="height: 360px;"><canvas id="market-donut"></canvas></div>
+        </div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="label">§ VI — Pricing strategy</div>
-        <h1>Pricing strategy.</h1>
-        <h2>Personas.</h2>
-        <p class="lede">Three buyers: HR Engagement Lead at MNCs, EX/Culture Manager at mid-size SMEs, and Office Manager at small SG SMEs. WTP bands shown in S$/month equivalent.</p>
-        <div id="personas"></div>
+        <div class="artefact-label">ARTIFACT 02B · PRICING STRATEGY</div>
+        <h1>Pricing <em>strategy</em>.</h1>
+        <p class="lede">Buyer personas and productised tiers — anchored against next-best-alternative cost, not list price.</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <h2>Recommended tiers.</h2>
-        <p class="lede">Single Event (free to host, brand-funded), Quarterly Activation Package (S$2,500/qtr), Annual Engagement Partner (S$12,000/yr).</p>
-        <div id="tiers" class="grid-3"></div>
+        <div class="section-header">
+          <h2>Buyer personas.</h2>
+          <span class="meta" id="personas-count"></span>
+        </div>
+        <div class="persona-grid" id="personas"></div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <h2>Competitor price comparison.</h2>
-        <p class="lede">Recommended tier overlaid against published competitor pricing. Where competitors hide pricing, the bar shows estimated mid-band.</p>
-        <div class="artifact" style="height: 540px;"><canvas id="price-bars"></canvas></div>
+        <div class="section-header">
+          <h2>Recommended tiers.</h2>
+          <span class="meta" id="tiers-count"></span>
+        </div>
+        <div class="tier-grid" id="tiers"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="chart-frame">
+          <div class="chart-title">Competitor price comparison.</div>
+          <div class="chart-sub">Recommended-tier line overlaid against published competitor pricing.</div>
+          <div class="chart-canvas" style="height: 540px;"><canvas id="price-bars"></canvas></div>
+        </div>
       </div>
     </section>
   </main>
@@ -139,69 +161,159 @@
     const { competitors, market, pricing } = await loadAppData();
     mountSampleBanner();
 
-    // KPI strip — TAM / SAM / SOM headline numbers, currency-aware.
+    /* ---------- Helpers ---------- */
     const ms = market.market_size;
-    const cur = ms.currency_label || 'S$';
-    const fmt = n => `${cur === 'SGD' ? 'S$' : cur === 'AUD' ? 'A$' : cur === 'HKD' ? 'HK$' : cur === 'USD' ? 'US$' : cur + ' '}${(n / 1000000).toFixed(n >= 100000000 ? 0 : 1)}M`;
+    const curSym = ms.currency_label === 'USD' ? 'US$'
+      : ms.currency_label === 'AUD' ? 'A$'
+      : ms.currency_label === 'HKD' ? 'HK$'
+      : ms.currency_label === 'SGD' ? 'S$'
+      : 'S$';
+    const fmtMoney = n => {
+      if (n >= 1e9) return [(n / 1e9).toFixed(n >= 1e10 ? 0 : 1), 'B'];
+      if (n >= 1e6) return [(n / 1e6).toFixed(n >= 1e8 ? 0 : 1), 'M'];
+      if (n >= 1e3) return [(n / 1e3).toFixed(n >= 1e5 ? 0 : 1), 'k'];
+      return [String(Math.round(n)), ''];
+    };
+    const truncate = (s, max = 80) => {
+      if (!s) return '—';
+      const t = String(s).trim();
+      return t.length > max ? t.slice(0, max - 1).replace(/\s+\S*$/, '') + '…' : t;
+    };
+    const sentimentClass = s => s === 'support' ? 'support' : s === 'against' ? 'against' : 'neutral';
+
+    /* ---------- KPI tiles (TAM / SAM / SOM) ---------- */
+    const kpiTile = (label, n, sub, tone) => {
+      const [v, unit] = fmtMoney(n);
+      return h('div', { class: `kpi-tile tone-${tone}` },
+        h('div', { class: 'kpi-tile-label' }, label),
+        h('div', { class: 'kpi-tile-value' },
+          curSym + v,
+          h('span', { class: 'unit' }, unit)
+        ),
+        h('div', { class: 'kpi-tile-sub' }, sub)
+      );
+    };
     mount(document.getElementById('market-kpis'),
-      h('div', { class: 'kpi alt-1' },
-        h('div', { class: 'kpi-lbl' }, 'TAM'),
-        h('div', { class: 'kpi-val' }, fmt(ms.tam_sgd))
-      ),
-      h('div', { class: 'kpi alt-2' },
-        h('div', { class: 'kpi-lbl' }, 'SAM'),
-        h('div', { class: 'kpi-val' }, fmt(ms.sam_sgd))
-      ),
-      h('div', { class: 'kpi alt-3' },
-        h('div', { class: 'kpi-lbl' }, 'SOM (5-yr)'),
-        h('div', { class: 'kpi-val' }, fmt(ms.som_sgd))
-      ),
+      kpiTile('TAM', ms.tam_sgd, 'Total addressable spend, full geography in scope.', 'oxblood'),
+      kpiTile('SAM', ms.sam_sgd, 'Realistically reachable with current channels.', 'gold'),
+      kpiTile('SOM (Yr-3)', ms.som_sgd, 'Year-3 obtainable share — what we commit to.', 'ink')
     );
 
+    if (ms.sources?.length) {
+      document.getElementById('market-source-chip').textContent =
+        `${ms.sources.length} source${ms.sources.length > 1 ? 's' : ''} cited`;
+    }
+
+    /* ---------- Market funnel (canonical viz, untouched) ---------- */
     renderMarketFunnel(document.getElementById('market-size'), ms);
 
-    const policyColor = s => s === 'support' ? '#0a8a4a' : s === 'against' ? '#b91c1c' : 'var(--ink-3)';
-    mount(document.getElementById('policies'), ...market.policies.map(p =>
-      h('div', { class: 'top5-card', style: { borderLeftColor: policyColor(p.sentiment) } },
-        h('h3', {}, p.title),
-        h('p', {}, p.body),
-        h('p', {}, h('strong', {}, 'Implication: '), p.implication_for_us)
+    /* ---------- Policy cards (sentiment-coloured) ---------- */
+    const policyCard = p => h('div', { class: `policy-card discounter-style ${sentimentClass(p.sentiment)}` },
+      h('div', { class: 'policy-head' },
+        h('div', { class: 'sentiment-dot' }),
+        h('div', { class: 'policy-head-text' },
+          h('h3', {}, p.title),
+          h('div', { class: 'policy-meta' }, [p.sentiment, p.effective_date].filter(Boolean).join(' · '))
+        )
+      ),
+      h('div', { class: 'policy-body' }, h('p', {}, p.body)),
+      h('div', { class: 'policy-implication' },
+        h('strong', {}, 'Implication for us'),
+        p.implication_for_us || ''
       )
-    ));
+    );
+    mount(document.getElementById('policies'), ...market.policies.map(policyCard));
+    document.getElementById('policies-count').textContent =
+      `${market.policies.length} polic${market.policies.length === 1 ? 'y' : 'ies'}`;
 
-    mount(document.getElementById('country-tbody'), ...market.adoption_patterns.country_readiness.map(r =>
-      h('tr', {},
-        h('td', {}, r.country),
-        h('td', {}, String(r.regulatory)),
-        h('td', {}, String(r.tech_maturity)),
-        h('td', {}, String(r.price_tolerance))
+    /* ---------- Country readiness (spark-bars) ---------- */
+    const scoreBar = (n, mod) => {
+      const segs = [];
+      for (let i = 1; i <= 5; i++) segs.push(h('span', { class: `seg ${i <= n ? 'on' : ''}` }));
+      return h('span', { class: `score-bar ${mod || ''}` }, ...segs);
+    };
+    mount(document.getElementById('country-tbody'),
+      ...market.adoption_patterns.country_readiness.map(r =>
+        h('tr', {},
+          h('td', { class: 'country-name' }, r.country),
+          h('td', {}, scoreBar(r.regulatory)),
+          h('td', {}, scoreBar(r.tech_maturity, 'gold')),
+          h('td', {}, scoreBar(r.price_tolerance, 'oxblood'))
+        )
       )
-    ));
+    );
 
-    mount(document.getElementById('personas'), ...pricing.personas.map(p =>
-      h('div', { class: 'persona-card' },
-        h('h3', {}, p.name),
-        h('p', {}, h('em', {}, p.icp)),
-        h('p', {}, h('strong', {}, 'Pains: '), p.pains.join(' · ')),
-        h('p', {}, h('strong', {}, 'Current workaround: '), p.current_workaround),
-        h('p', {}, h('strong', {}, 'WTP band (S$/mo): '), `${p.wtp_band_sgd.low_anchor} – ${p.wtp_band_sgd.expected} – ${p.wtp_band_sgd.upper_stretch}`),
-        h('p', {}, h('strong', {}, 'NBA: '), typeof p.nba === 'string' ? p.nba : (p.nba?.summary || ''))
-      )
-    ));
-
-    mount(document.getElementById('tiers'), ...pricing.recommended_tiers.map(t =>
-      h('div', { class: 'top5-card' },
-        h('h3', {}, t.name),
-        h('p', { style: { fontSize: '32px', fontWeight: '800', color: 'var(--primary)', fontFamily: 'inherit', margin: '6px 0' } },
-          `S$${t.price_sgd}`, h('span', { style: { fontSize: '14px', fontWeight: '400', color: 'var(--ink-3)' } }, '/mo')
+    /* ---------- Personas (discounter-style) ---------- */
+    const initials = name => {
+      if (!name) return '?';
+      return name.split(/[\s—\-()]+/).filter(Boolean).slice(0, 2).map(s => s[0] || '').join('').toUpperCase().slice(0, 2);
+    };
+    const wtpRangeBar = wtp => {
+      if (!wtp) return null;
+      const { low_anchor, expected, upper_stretch } = wtp;
+      const fillPct = upper_stretch > 0 ? Math.round((expected / upper_stretch) * 100) : 50;
+      return h('div', {},
+        h('div', { class: 'range-bar' },
+          h('div', { class: 'range-fill', style: { width: fillPct + '%' } }),
+          h('div', { class: 'range-tick', style: { left: 'calc(' + fillPct + '% - 1px)' } })
         ),
-        h('p', {}, h('em', {}, t.target_persona)),
-        h('ul', {}, t.what_in.map(i => h('li', {}, i))),
-        h('p', { style: { fontStyle: 'italic', color: 'var(--ink-3)' } }, t.psychological_anchor),
-        h('p', {}, h('strong', {}, 'After PSG: '), `S$${t.effective_price_after_psg}/mo`)
+        h('div', { class: 'range-labels' },
+          h('span', {}, 'S$' + low_anchor),
+          h('span', {}, 'S$' + expected),
+          h('span', {}, 'S$' + upper_stretch)
+        )
+      );
+    };
+    const personaCard = p => h('div', { class: 'persona-card discounter-style' },
+      h('div', { class: 'avatar' }, initials(p.name)),
+      h('div', { class: 'persona-body' },
+        h('div', { class: 'persona-name' }, p.name),
+        h('div', { class: 'persona-icp' }, p.icp),
+        h('hr', { class: 'persona-divider' }),
+        h('div', { class: 'persona-meta-row' },
+          h('div', { class: 'pm-cell' },
+            h('span', { class: 'pm-label' }, 'Pains'),
+            h('div', { class: 'pm-value' }, truncate(Array.isArray(p.pains) ? p.pains.slice(0, 3).join(' · ') : ''))
+          ),
+          h('div', { class: 'pm-cell' },
+            h('span', { class: 'pm-label' }, 'WTP band'),
+            wtpRangeBar(p.wtp_band_sgd) || h('div', { class: 'pm-value mono' }, '—')
+          ),
+          h('div', { class: 'pm-cell' },
+            h('span', { class: 'pm-label' }, 'NBA'),
+            h('div', { class: 'pm-value mono' }, truncate(typeof p.nba === 'string' ? p.nba : (p.nba?.summary || '—'), 90))
+          )
+        )
       )
-    ));
+    );
+    mount(document.getElementById('personas'), ...pricing.personas.map(personaCard));
+    document.getElementById('personas-count').textContent = `${pricing.personas.length} ICPs`;
 
+    /* ---------- Tiers (3-up, featured middle) ---------- */
+    const tierCard = (t, idx, len) => {
+      const isFeatured = (len === 3 ? idx === 1 : idx === Math.floor(len / 2));
+      return h('div', { class: 'tier-card discounter-style' + (isFeatured ? ' featured' : '') },
+        h('div', { class: 'tier-name' }, t.name),
+        h('div', { class: 'tier-persona' }, t.target_persona || ''),
+        h('div', { class: 'tier-price' },
+          h('span', { class: 'amount' }, 'S$' + t.price_sgd),
+          h('span', { class: 'per' }, '/mo')
+        ),
+        h('ul', { class: 'tier-list' },
+          ...((t.what_in || []).map(item => h('li', {}, item)))
+        ),
+        t.psychological_anchor ? h('div', { class: 'tier-anchor' }, t.psychological_anchor) : null,
+        h('div', { class: 'tier-foot' },
+          h('span', {}, 'After PSG'),
+          h('strong', {}, 'S$' + t.effective_price_after_psg + '/mo')
+        )
+      );
+    };
+    const tiers = pricing.recommended_tiers || [];
+    mount(document.getElementById('tiers'), ...tiers.map((t, i) => tierCard(t, i, tiers.length)));
+    document.getElementById('tiers-count').textContent = `${tiers.length} tier${tiers.length === 1 ? '' : 's'}`;
+
+    /* ---------- Charts ---------- */
     renderMarketDonut({ canvas: document.getElementById('market-donut'), competitors: competitors.competitors });
     renderPriceBars({ canvas: document.getElementById('price-bars'), competitors: competitors.competitors, ourPriceSgd: pricing.recommended_tiers[1]?.price_sgd });
   </script>
