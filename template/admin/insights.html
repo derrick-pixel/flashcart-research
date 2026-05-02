@@ -204,8 +204,59 @@
         `${ms.sources.length} source${ms.sources.length > 1 ? 's' : ''} cited`;
     }
 
-    /* ---------- Market funnel (canonical viz, untouched) ---------- */
-    renderMarketFunnel(document.getElementById('market-size'), ms);
+    /* ---------- Market funnel — editorial render (replaces renderMarketFunnel) ---------- */
+    const stageTone = { tam: 'oxblood', sam: 'gold', som: 'ink' };
+    const stageOrder = ['tam', 'sam', 'som'];
+    const flow = ms.derivation_flow || {};
+    const inputChip = i => h('div', { class: 'input-chip' },
+      h('span', { class: 'input-label' }, i.label),
+      h('span', { class: 'input-value' }, i.value)
+    );
+    const stackTile = s => h('div', { class: 'stack-tile' },
+      h('div', { class: 'stack-head' },
+        h('h4', { class: 'stack-name' }, s.name),
+        s.result_label ? h('div', { class: 'stack-result' }, s.result_label) : null
+      ),
+      s.equation ? h('div', { class: 'stack-equation' }, s.equation) : null,
+      s.inputs?.length ? h('div', { class: 'stack-inputs' }, ...s.inputs.map(inputChip)) : null,
+      s.source ? h('div', { class: 'stack-source' }, s.source) : null
+    );
+    const stageCard = key => {
+      const stage = flow[key];
+      if (!stage) return null;
+      return h('div', { class: `stage-card tone-${stageTone[key]}` },
+        h('div', { class: 'stage-header' },
+          h('div', { class: 'stage-label' }, stage.stage_label || key.toUpperCase()),
+          stage.result_label ? h('div', { class: 'stage-result' }, stage.result_label) : null
+        ),
+        stage.subtitle ? h('p', { class: 'stage-subtitle' }, stage.subtitle) : null,
+        stage.total_equation ? h('div', { class: 'stage-equation' }, stage.total_equation) : null,
+        stage.filters?.length ? h('div', { class: 'stage-filters' },
+          ...stage.filters.map(f => h('span', { class: 'filter-chip' }, f))
+        ) : null,
+        stage.stacks?.length ? h('div', { class: 'stage-stacks' }, ...stage.stacks.map(stackTile)) : null
+      );
+    };
+    const stagesEl = h('div', { class: 'funnel-stages' }, ...stageOrder.map(stageCard).filter(Boolean));
+    const implsEl = ms.implications?.length ? h('div', { class: 'funnel-impls' },
+      h('div', { class: 'funnel-impls-label' }, 'Strategic implications'),
+      h('div', { class: 'funnel-impls-grid' }, ...ms.implications.map(im => h('div', { class: 'impl-card' },
+        h('h4', {}, im.headline),
+        h('p', {}, im.body),
+        im.agent_targets?.length ? h('div', { class: 'impl-targets' },
+          ...im.agent_targets.map(t => h('span', { class: 'target-chip' }, t.replace('_', ' ')))
+        ) : null
+      )))
+    ) : null;
+    const sourcesEl = ms.sources?.length ? h('details', { class: 'funnel-sources' },
+      h('summary', {}, `${ms.sources.length} source${ms.sources.length > 1 ? 's' : ''} cited`),
+      h('ul', {}, ...ms.sources.map(s => h('li', {}, h('a', { href: s.url, target: '_blank', rel: 'noopener' }, s.title))))
+    ) : null;
+    const apxEl = ms.methodology_appendix ? h('details', { class: 'funnel-appendix' },
+      h('summary', {}, 'Methodology appendix (full derivation)'),
+      h('div', { class: 'appendix-body' }, ms.methodology_appendix)
+    ) : null;
+    mount(document.getElementById('market-size'), stagesEl, implsEl, apxEl, sourcesEl);
 
     /* ---------- Policy cards (sentiment-coloured) ---------- */
     const policyCard = p => h('div', { class: `policy-card discounter-style ${sentimentClass(p.sentiment)}` },
