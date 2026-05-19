@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500&family=Noto+Serif+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-  <script src="../assets/vendor/chart.umd.js"></script>
+  <script src="../assets/kit/vendor/chart.umd.js"></script>
   <style>
     /* ===========================================================
        HOSAI 法廷 — Japanese editorial book
@@ -859,8 +859,8 @@
   </article>
 
   <script type="module">
-    import { loadAppData } from '../assets/js/app.js';
-    import { h, mount } from '../assets/js/dom.js';
+    import { loadAppData } from '../assets/kit/js/app.js';
+    import { h, mount } from '../assets/kit/js/dom.js';
 
     const { competitors, market, pricing } = await loadAppData();
     const ms = market.market_size || {};
@@ -1179,6 +1179,6 @@
     });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="assets/js/auth-gate.js"></script>
+  <script src="../assets/kit/js/auth-gate.js"></script>
 </body>
 </html>

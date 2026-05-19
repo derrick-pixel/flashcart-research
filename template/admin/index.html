@@ -231,9 +231,9 @@
   </div>
 
   <script type="module">
-    import { loadAppData, mountSampleBanner } from '../assets/js/app.js';
-    import { wireSearch } from '../assets/js/viz/search.js';
-    import { h, mount } from '../assets/js/dom.js';
+    import { loadAppData, mountSampleBanner } from '../assets/kit/js/app.js';
+    import { wireSearch } from '../assets/kit/js/viz/search.js';
+    import { h, mount } from '../assets/kit/js/dom.js';
 
     const data = await loadAppData();
     mountSampleBanner();
@@ -283,6 +283,6 @@
     });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="assets/js/auth-gate.js"></script>
+  <script src="../assets/kit/js/auth-gate.js"></script>
 </body>
 </html>

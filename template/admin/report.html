@@ -10,9 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/report.css">
-  <script src="../assets/vendor/chart.umd.js"></script>
-  <script src="../assets/vendor/html2canvas.min.js"></script>
-  <script src="../assets/vendor/jspdf.umd.min.js"></script>
+  <script src="../assets/kit/vendor/chart.umd.js"></script>
+  <script src="../assets/kit/vendor/html2canvas.min.js"></script>
+  <script src="../assets/kit/vendor/jspdf.umd.min.js"></script>
   <style>
     :root {
       --paper: #d8d4cc;
@@ -269,10 +269,10 @@
   </div>
 
   <script type="module">
-    import { loadAppData, mountSampleBanner } from '../assets/js/app.js';
-    import { buildSections, renderPages } from '../assets/js/report/page-templates.js';
-    import { generatePDF, PreflightError } from '../assets/js/report/pdf-generator.js';
-    import { clear } from '../assets/js/dom.js';
+    import { loadAppData, mountSampleBanner } from '../assets/kit/js/app.js';
+    import { buildSections, renderPages } from '../assets/kit/js/report/page-templates.js';
+    import { generatePDF, PreflightError } from '../assets/kit/js/report/pdf-generator.js';
+    import { clear } from '../assets/kit/js/dom.js';
 
     const data = await loadAppData();
     mountSampleBanner();
@@ -323,6 +323,6 @@
     });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="assets/js/auth-gate.js"></script>
+  <script src="../assets/kit/js/auth-gate.js"></script>
 </body>
 </html>
